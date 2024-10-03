@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ART Chat</title>
+    <link rel="stylesheet" href="{% static 'styles/index.css' %}">
+    <link rel="shortcut icon" href="{% static 'imagens/art-logo.ico' %}" type="image/x-icon">
+</head>
+<body>
+    <div id="content">
+        <nav>
+                <p>Bem-vindo(a) <strong>{{user}}</strong></p>
+                <a href="{% url 'logout' %}"><img src="{% static 'imagens/shutdown.svg' %}" alt="sair">Sair</a>
+        </nav>
+        <h1>ART Chat:</h1>
+        <section>
+            <p id="messages"></p>
+        </section>
+        <form method="post" id="form">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit"><img src="{% static 'imagens/send.svg' %}" alt="enviar"></button>
+        </form>
+    </div>
+    <p id="request-user">{{user}}</p>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script type="text/javascript">
+        let url = `ws://${window.location.host}/ws/socket-server/`
+
+        const chatSocket = new WebSocket(url)
+
+        chatSocket.onmessage = function(e){
+            let data = JSON.parse(e.data)
+            console.log('Data:', data)
+
+            if(data.type == 'chat'){
+            let messages = document.getElementById('messages')
+
+            messages.insertAdjacentHTML('beforeend', `<p><strong>${data.usuario}:</strong> ${data.mensagem}</p>`)
+            }
+            const chatMessages = document.querySelector('section');
+            chatMessages.scrollTop = messages.scrollHeight;
+
+            if (document.visibilityState === 'visible') {
+                new Audio("../../../media/audio/pop.mp3").play();
+            } else {
+                new Audio("../../../media/audio/notification.mp3").play();
+            }}
+
+        let form = document.getElementById('form')
+        form.addEventListener('submit', (e)=> {
+            e.preventDefault()
+            let usuario = document.getElementById('request-user').innerText
+            let mensagem = e.target.mensagem.value
+            chatSocket.send(JSON.stringify({
+                'usuario': usuario,
+                'mensagem': mensagem,
+            }))
+            form.reset()
+        })
+
+        let targetElm = document.querySelector('section');
+        let button = document.querySelector('button');
+    
+        button.addEventListener('click', function(){
+        targetElm.scrollIntoView()
+        })
+    </script>
+</body>
+</html>

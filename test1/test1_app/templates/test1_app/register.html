@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar-se</title>
+    <link rel="stylesheet" href="{% static 'styles/register.css' %}">
+    <link rel="shortcut icon" href="{% static 'imagens/art-logo.ico' %}" type="image/x-icon">
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit">Registrar-se</button>
+    </form>
+    <p>Já tem uma conta? Faça <a href="{% url 'login' %}">login</a></p>
+</body>
+</html>

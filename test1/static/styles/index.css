@@ -1,0 +1,126 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('./fonts/Inter_24pt-Regular.ttf');
+}
+
+html, body{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    font-family: 'Inter';
+    overflow-y: hidden;
+    position: relative;
+    background-image: url('../imagens/art-logo.ico');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+body::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.905);
+    z-index: 1;
+}
+
+div#content{
+    position: relative;
+    z-index: 2;
+}
+
+nav{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+nav > p{
+    font-size: 20px;
+    margin-right: 20px;
+}
+
+a{
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    border: none;
+    background-color: rgb(255, 0, 0);
+    border-radius: 9999999px;
+    padding: 10px;
+    margin-right: 20px;
+}
+
+a > img{
+    width: 20px;
+    margin-right: 5px;
+}
+
+#request-user{
+    display: none;
+}
+
+h1{
+    text-align: center;
+}
+
+form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form > p{
+    display: inline;
+    padding: 0;
+}
+
+input{
+    height: 30px;
+    width: 92vw;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+#mensagem-form{
+    display: inline;
+}
+
+button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: rgb(0, 0, 255);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+label{
+    display: block;
+}
+
+section{
+    scroll-behavior: smooth;
+    height: 72dvh;
+    overflow-y: scroll;
+}
+
+#messages{
+    font-size: 20px;
+    text-align: center;
+    font-size: 25px;
+}
